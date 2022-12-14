@@ -1,29 +1,10 @@
 import React, { useState } from "react";
 
-export default function About() {
-  const [styleText, setStyle] = useState({
-    color: "black",
-    backgroundColor: "white",
-  });
-  const changeMode = () => {
-    if (styleText.color === "black") {
-      setStyle({
-        color: "white",
-        backgroundColor: "black",
-      });
-      setBtn("Enable Light Mode");
-    } else {
-      setStyle({
-        color: "black",
-        backgroundColor: "white",
-      });
-      setBtn("Enable Dark Mode");
-    }
-  };
+export default function About(props) {
   const [btnText, setBtn] = useState("Enable Dark Mode");
   return (
     <>
-      <div className="container" style={styleText}>
+      <div className={`container text-${props.textColor} my-3`}>
         <h1>About Us </h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae a
@@ -31,9 +12,6 @@ export default function About() {
           distinctio exercitationem? Accusantium ipsa perspiciatis aut nobis
           recusandae consequatur iste maiores?
         </p>
-        <button className="btn btn-dark" onClick={changeMode}>
-          {btnText}
-        </button>
       </div>
     </>
   );

@@ -13,10 +13,10 @@ export default function TextForm(props) {
     setText(newText);
   };
   const copyClicked = () => {
-    console.log("You Have Click The Button");
     var text = document.getElementById("textbox");
-    text.select();
+
     navigator.clipboard.writeText(text.value);
+
     props.showAlert("Text has been Copied To Your Clip Board", "success");
   };
   const clearClicked = () => {
@@ -29,7 +29,9 @@ export default function TextForm(props) {
 
   return (
     <>
-      <div className={`container bg-${props.mode} text-${props.textColor}`}>
+      <div
+        className={`container bg-${props.mode} text-${props.textColor} my-3 `}
+      >
         <div className="mb-3">
           <h2>{props.heading}</h2>
           <textarea
@@ -40,24 +42,53 @@ export default function TextForm(props) {
             value={text}
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-1" onClick={capClicked}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={capClicked}
+        >
           Upper Case
         </button>
-        <button className="btn btn-primary mx-1" onClick={lowClicked}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={lowClicked}
+        >
           Lower Case
         </button>
-        <button className="btn btn-primary mx-1" onClick={copyClicked}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
+          onClick={copyClicked}
+        >
           Copy Text
         </button>
-        <button className="btn btn-danger mx-1" onClick={clearClicked}>
+        <button
+          disabled={text.length === 0}
+          className="btn btn-danger mx-1 my-1"
+          onClick={clearClicked}
+        >
           Clear text
         </button>
         <div className="summary">
           <h3>Text Summary</h3>
-          <div>No. Of Words = {text.split(" ").length}</div>
+          <div>
+            No. Of Words ={" "}
+            {
+              text.split(/\s+/).filter((element) => {
+                return element.length !== 0;
+              }).length
+            }
+          </div>
           <div>No. Of Characters={text.length}</div>
           <div>
-            Time To read= {Math.round(text.split(" ").length / 4.5)} Seconds
+            Time To read={" "}
+            {Math.round(
+              text.split(/\s+/).filter((element) => {
+                return element.length !== 0;
+              }).length / 4.5
+            )}{" "}
+            Seconds
           </div>
         </div>
       </div>
